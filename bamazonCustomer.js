@@ -1,21 +1,27 @@
-// Challenge #1: Customer View (Minimum Requirement)
-// Create a MySQL Database called bamazon.
+const inquirer = require ("inquirer");
+const mysql = require ("mysql");
 
-// Then create a Table inside of that database called products.
+var connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "root",
+    database: "bamazon_db"
+});
 
-// The products table should have each of the following columns:
+connection.connect(function(err){
+    if (err) throw err;
+    console.log("id: " + connection.threadId);
+    afterConnection();
+});
 
-// item_id (unique id for each product)
-
-// product_name (Name of product)
-
-// department_name
-
-// price (cost to customer)
-
-// stock_quantity (how much of the product is available in stores)
-
-// Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
+function afterConnection() {
+    connection.query("SELECT * FROM products",function(err, res){
+        if (err) throw err;
+        console.table(res);
+        connection.end();
+    })
+}
 
 // Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 

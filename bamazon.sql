@@ -1,18 +1,27 @@
+-- Create a MySQL Database called bamazon.
 DROP DATABASE IF EXISTS bamazon_db;
 
 CREATE DATABASE bamazon_db;
 
 USE bamazon_db;
 
+-- Then create a Table inside of that database called products.
 CREATE TABLE products (
+    -- item_id (unique id for each product)
     item_id INTEGER (11) AUTO_INCREMENT NOT NULL,
+    -- product_name (Name of product)
     product_name VARCHAR (50) NOT NULL,
+    -- department_name
     department_name VARCHAR (30) NOT NULL,
+    -- price (cost to customer)
     price DECIMAL (8, 2) NOT NULL,
+    -- stock_quantity (how much of the product is available in stores)
     stock_quantity INTEGER (10),
+
     PRIMARY KEY (item_id)
 );
 
+-- Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Ticket to Ride", "Toys and Games", 39.99, 5);
 
