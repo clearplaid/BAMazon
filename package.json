@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "amazon-like storefront node app using MySQL database",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clearplaid/BAMazon.git"
+  },
+  "author": "Shannon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clearplaid/BAMazon/issues"
+  },
+  "homepage": "https://github.com/clearplaid/BAMazon#readme",
+  "dependencies": {
+    "inquirer": "^6.3.1",
+    "mysql": "^2.17.1"
+  }
+}
