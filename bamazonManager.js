@@ -107,20 +107,14 @@ function addToInventory() {
           ])
           .then(function(answer) {
             // get the information of the chosen item
-            console.log("Answer: " + JSON.stringify(answer));
-            console.log("Results: " + JSON.stringify(results));
-            // get the information of the chosen item
             var updateItem = [];
             for (let i = 0; i < results.length; i++) {
                 if (results[i].product_name === answer.product) {
                     updateItem.push(results[i]);
                 }
             }
-            console.log("Update Item: " + JSON.stringify(updateItem));
             
             var newQuantity = updateItem[0].stock_quantity += parseInt(answer.quantity);
-
-            console.log("New Quantity: " + newQuantity);
             
             connection.query(
             "UPDATE products SET ? WHERE ?",
