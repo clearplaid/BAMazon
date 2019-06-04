@@ -87,7 +87,7 @@ function purchasePrompt(){
                     // Once the update goes through, show the customer the total cost of their purchase.
                     purchaseTotal = chosenProduct.price *= parseInt(answer.quantity)
                     console.log("Purchase Total = " + purchaseTotal);
-                    displayProducts();
+                    connection.end();
                 });
             }
         });

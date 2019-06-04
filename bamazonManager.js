@@ -1,20 +1,92 @@
 // Challenge #2: Manager View (Next Level)
-// Create a new Node application called bamazonManager.js. Running this application will:
+// Node application called bamazonManager.js. Running this application will:
+const inquirer = require ("inquirer");
+const mysql = require ("mysql");
 
+var connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "root",
+    database: "bamazon_db"
+});
+
+connection.connect(function(err){
+    if (err) throw err;
+    console.log("id: " + connection.threadId);
+    startMenu();
+
+});
 // List a set of menu options:
+function startMenu (){
+    inquirer.prompt({
+        name: "selection",
+        type: "list",
+        message: "Make a selection:",
+        choices: ["Products for Sale", "Low Inventory", "Add Inventory", "Add New Product", "Exit"]
+    }).then(function(answer) {
+        console.log("Manager Selection: " + JSON.stringify(answer));
+        
+            switch(answer.selection) {
+                case 'Products for Sale':
+                viewProducts();
+                break;
+
+                case 'Low Inventory':
+                viewLowInventory();
+                break;  
+                
+                case 'Add Inventory':
+                addToInventory();
+                break;
+
+                case 'Add New Product':
+                addNewProduct();
+                break;
+
+                default:
+                console.log("Exiting program");
+                connection.end();
+            }
+                
+    })
+}
 
 // View Products for Sale
+function viewProducts () {
+    // list every available item: the item IDs, names, prices, and quantities.
+    connection.query("SELECT * FROM products", function(err, results) {
+        if (err) throw err;
+        console.table(results);
+        startMenu();
+    })
+}
 
 // View Low Inventory
+function viewLowInventory() {
+    // list all items with an inventory count lower than five
+    connection.query("SELECT * FROM products", function(err, results) {
+        if (err) throw err;
+        
+        var lowInventory = [];
+        for (let i = 0; i < results.length; i++) {
+            if (results[i].stock_quantity < 5) {
+                lowInventory.push("Product: " + results[i].product_name + " Quantity: " + results[i].stock_quantity);
+            }
+        }  
+        console.log(lowInventory);
+        startMenu();
+    })
+};
 
-// Add to Inventory
+// // Add to Inventory
+// function addToInventory() {
+//     // display a prompt that will let the manager "add more" of any item currently in the store
 
-// Add New Product
+// };
 
-// If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
+// // Add New Product
+// function addNewProduct() {
+//     // allow the manager to add a completely new product to the store
 
-// If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
-
-// If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-
-// If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
+// };
