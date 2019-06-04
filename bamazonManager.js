@@ -79,11 +79,69 @@ function viewLowInventory() {
     })
 };
 
-// // Add to Inventory
-// function addToInventory() {
-//     // display a prompt that will let the manager "add more" of any item currently in the store
+// Add to Inventory
+function addToInventory() {
+    // display a prompt that will let the manager "add more" of any item currently in the store
+    connection.query("SELECT * FROM products", function(err, results) {
+        if (err) throw err;
+        // once you have the products, prompt the mgr for which they'd like to add
+        inquirer
+          .prompt([
+            {
+              name: "product",
+              type: "rawlist",
+              choices: function() {
+                var productArray = [];
+                for (let i = 0; i < results.length; i++) {
+                  productArray.push(results[i].product_name);
+                }
+                return productArray;
+              },
+              message: "What product would you like to update?"
+            },
+            {
+              name: "quantity",
+              type: "input",
+              message: "How many would you like to add?"
+            }
+          ])
+          .then(function(answer) {
+            // get the information of the chosen item
+            console.log("Answer: " + JSON.stringify(answer));
+            console.log("Results: " + JSON.stringify(results));
+            // get the information of the chosen item
+            var updateItem = [];
+            for (let i = 0; i < results.length; i++) {
+                if (results[i].product_name === answer.product) {
+                    updateItem.push(results[i]);
+                }
+            }
+            console.log("Update Item: " + JSON.stringify(updateItem));
+            
+            var newQuantity = updateItem[0].stock_quantity += parseInt(answer.quantity);
 
-// };
+            console.log("New Quantity: " + newQuantity);
+            
+            connection.query(
+            "UPDATE products SET ? WHERE ?",
+            [
+                {
+                    stock_quantity: newQuantity
+                },
+                {
+                    item_id: updateItem[0].item_id
+                }
+            ],
+            function(error) {
+                if (error) throw err;
+
+                console.log("Inventory updated successfully!");
+                startMenu();
+            }
+            );
+        })
+    })
+}
 
 // Add New Product
 function addNewProduct() {
