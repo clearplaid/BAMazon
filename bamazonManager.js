@@ -85,8 +85,61 @@ function viewLowInventory() {
 
 // };
 
-// // Add New Product
-// function addNewProduct() {
-//     // allow the manager to add a completely new product to the store
+// Add New Product
+function addNewProduct() {
+    // allow the manager to add a completely new product to the store
+    inquirer
+    .prompt([
+      {
+        name: "product",
+        type: "input",
+        message: "Add Product Name"
+      },
+      {
+        name: "department",
+        type: "input",
+        message: "Add Department"
+      },
+      {
+        name: "price",
+        type: "input",
+        message: "Add Price",
+        validate: function(value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
+      },
+      {
+        name: "quantity",
+        type: "input",
+        message: "Add Quantity",
+        validate: function(value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
+      }
+    ])
+    .then(function(answer) {
+      // when finished prompting, insert a new product into the db with that info
+      connection.query(
+        "INSERT INTO products SET ?",
+        {
+          product_name: answer.product,
+          department_name: answer.department,
+          price: answer.price,
+          stock_quantity: answer.quantity
+        },
+        function(err) {
+          if (err) throw err;
 
-// };
+          console.log("Your product was added successfully!");
+          startMenu();
+        }
+      );
+    });
+}
+
