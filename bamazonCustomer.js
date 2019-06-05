@@ -12,9 +12,31 @@ var connection = mysql.createConnection({
 connection.connect(function(err){
     if (err) throw err;
     console.log("id: " + connection.threadId);
-    displayProducts();
+    customerMenu();
 
 });
+
+function customerMenu (){
+    inquirer.prompt({
+        name: "selection",
+        type: "list",
+        message: "Make a selection:",
+        choices: ["Purchase", "Exit"]
+    }).then(function(answer) {
+        // console.log("Customer Selection: " + JSON.stringify(answer));
+        
+            switch(answer.selection) {
+                case 'Purchase':
+                displayProducts();
+                break;
+
+                default:
+                console.log("Come Back Soon! \n");
+                connection.end();
+            }
+                
+    })
+}
 
 // display all of the items available for sale. Include the ids, names, and prices of products for sale.
 function displayProducts() {
@@ -51,16 +73,17 @@ function purchasePrompt(){
         message: "How many would you like to purchase?" 
     }
     ]).then(function(answer){
-        console.log("answer: " + JSON.stringify(answer));
+        // console.log("answer: " + JSON.stringify(answer));
+        
         // get selected product info
-        console.log("results: " + JSON.stringify(results));
         var chosenProduct;
         for (let i = 0; i < results.length; i++) {
             if (results[i].product_name === answer.choice) {
               chosenProduct = results[i];
             }
         };
-        console.log("Chosen Product: " + JSON.stringify(chosenProduct));
+        // console.log("Chosen Product: " + JSON.stringify(chosenProduct));
+
         // Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
         if (chosenProduct[4] < parseInt(answer.quantity)) {
             // If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
@@ -71,12 +94,14 @@ function purchasePrompt(){
         // However, if your store does have enough of the product, you should fulfill the customer's order.
 
         else {
+            var purchaseTotal = chosenProduct.price *= parseInt(answer.quantity);
             connection.query(
                 // updating the SQL database to reflect the remaining quantity.
                 "UPDATE products SET ? WHERE ?",
                 [
                     {
-                        stock_quantity: chosenProduct.stock_quantity -= answer.quantity
+                        stock_quantity: chosenProduct.stock_quantity -= answer.quantity,
+                        product_sales: chosenProduct.product_sales += purchaseTotal
                     },
                     {
                         item_id: chosenProduct.item_id
@@ -85,9 +110,9 @@ function purchasePrompt(){
                 function(error) {
                     if (error) throw err;
                     // Once the update goes through, show the customer the total cost of their purchase.
-                    purchaseTotal = chosenProduct.price *= parseInt(answer.quantity)
-                    console.log("Purchase Total = " + purchaseTotal);
-                    connection.end();
+                    console.log("Thank you for your purchase! \n Come Back Soon!")
+                    console.log("Purchase Total= $" + purchaseTotal + "\n");
+                    customerMenu();
                 });
             }
         });

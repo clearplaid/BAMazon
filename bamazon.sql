@@ -51,3 +51,29 @@ VALUES ("Mario Maker 2", "Video Games", 59.99, 15);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Super Smash Bros", "Video Games", 49.99, 9);
+
+-- Create a new MySQL table called departments. Your table should include the following columns:
+CREATE TABLE departments (
+    -- department_id
+    department_id INTEGER (11) AUTO_INCREMENT NOT NULL,
+    -- department_name
+    department_name VARCHAR (50) NOT NULL,
+    -- over_head_costs (A dummy number you set for each department)
+    over_head_costs DECIMAL (8, 2) NOT NULL,
+    PRIMARY KEY (department_id)
+);
+
+ALTER TABLE departments AUTO_INCREMENT=100;
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Toys and Games", 2000.00);
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Arts and Crafts", 1000.00);
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Video Games", 900.00);
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Electronics", 10500.00);
+
