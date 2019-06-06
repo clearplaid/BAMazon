@@ -1,5 +1,5 @@
 // Challenge #2: Manager View (Next Level)
-// Node application called bamazonManager.js. Running this application will:
+
 const inquirer = require ("inquirer");
 const mysql = require ("mysql");
 
@@ -25,7 +25,6 @@ function startMenu (){
         message: "Make a selection:",
         choices: ["Products for Sale", "Low Inventory", "Add Inventory", "Add New Product", "Exit"]
     }).then(function(answer) {
-        console.log("Manager Selection: " + JSON.stringify(answer));
         
             switch(answer.selection) {
                 case 'Products for Sale':

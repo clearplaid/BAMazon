@@ -24,7 +24,6 @@ function supervisorMenu (){
         message: "Make a selection:",
         choices: ["Department Product Sales", "Create New Department", "Exit"]
     }).then(function(answer) {
-        console.log("Supervisor Selection: " + JSON.stringify(answer));
         
             switch(answer.selection) {
                 case 'Department Product Sales':
@@ -38,13 +37,13 @@ function supervisorMenu (){
                 default:
                 console.log("Exiting program");
                 connection.end();
-            }
-                
+            }              
     })
 }
 
 // View Product Sales by Department
 function productSalesByDept () {
+     // The total_profit column is calculated on the fly using the difference between over_head_costs and product_sale
     var query = "SELECT departments.department_id, departments.department_name, departments.over_head_costs, sum(products.product_sales) AS product_sales, sum(products.product_sales) - departments.over_head_costs AS total_profit ";query += "FROM departments ";
     query += "LEFT JOIN products ";
     query += "ON bamazon_db.products.department_name = bamazon_db.departments.department_name ";
@@ -53,14 +52,10 @@ function productSalesByDept () {
 
     connection.query(query, function(err, results) {
         if (err) throw err;
+        // When a supervisor selects View Product Sales by Department, displays a summarized table in their terminal/bash window
         console.table(results);
         supervisorMenu();
     })
-    // When a supervisor selects View Product Sales by Department, the app should display a summarized table in their terminal/bash window. Use the table below as a guide.
-
-   
-
-    // The total_profit column should be calculated on the fly using the difference between over_head_costs and product_sales. total_profit should not be stored in any database. You should use a custom alias.
    
 }
 // Create New Department
@@ -86,7 +81,7 @@ function createDepartment() {
           },
         ])
         .then(function(answer) {
-          // when finished prompting, insert a new product into the db with that info
+          // when finished prompting, insert a new department into the db with that info
           connection.query(
             "INSERT INTO departments SET ?",
             {
@@ -102,14 +97,3 @@ function createDepartment() {
           );
         });
     }
-
-
-
-
-// Hint: You may need to look into aliases in MySQL.
-
-// Hint: You may need to look into GROUP BYs.
-
-// Hint: You may need to look into JOINS.
-
-// HINT: There may be an NPM package that can log the table to the console. What's is it? Good question :)

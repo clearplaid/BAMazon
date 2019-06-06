@@ -23,7 +23,6 @@ function customerMenu (){
         message: "Make a selection:",
         choices: ["Purchase", "Exit"]
     }).then(function(answer) {
-        // console.log("Customer Selection: " + JSON.stringify(answer));
         
             switch(answer.selection) {
                 case 'Purchase':
@@ -33,8 +32,7 @@ function customerMenu (){
                 default:
                 console.log("Come Back Soon! \n");
                 connection.end();
-            }
-                
+            }              
     })
 }
 
@@ -73,7 +71,6 @@ function purchasePrompt(){
         message: "How many would you like to purchase?" 
     }
     ]).then(function(answer){
-        // console.log("answer: " + JSON.stringify(answer));
 
         // get selected product info
         var chosenProduct;
@@ -82,7 +79,6 @@ function purchasePrompt(){
               chosenProduct = results[i];
             }
         };
-        // console.log("Chosen Product: " + JSON.stringify(chosenProduct.stock_quantity));
 
         // Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
         if (chosenProduct.stock_quantity < parseInt(answer.quantity)) {
@@ -90,8 +86,8 @@ function purchasePrompt(){
             console.log("Insufficient Quantity")
             displayProducts();
         }
-        // However, if your store does have enough of the product, you should fulfill the customer's order.
 
+        // However, if your store does have enough of the product, you should fulfill the customer's order.
         else {
             var purchaseTotal = chosenProduct.price *= parseInt(answer.quantity);
             connection.query(
@@ -116,6 +112,4 @@ function purchasePrompt(){
             }
         });
     })
-
-
 }
