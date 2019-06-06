@@ -22,12 +22,12 @@ function supervisorMenu (){
         name: "selection",
         type: "list",
         message: "Make a selection:",
-        choices: ["Product Sales", "Create New Department", "Exit"]
+        choices: ["Department Product Sales", "Create New Department", "Exit"]
     }).then(function(answer) {
         console.log("Supervisor Selection: " + JSON.stringify(answer));
         
             switch(answer.selection) {
-                case 'Product Sales':
+                case 'Department Product Sales':
                 productSalesByDept();
                 break;
 
@@ -43,28 +43,66 @@ function supervisorMenu (){
     })
 }
 
-
-// Modify the products table so that there's a product_sales column, and modify your bamazonCustomer.js app so that when a customer purchases anything from the store, the price of the product multiplied by the quantity purchased is added to the product's product_sales column.
-
-// Make sure your app still updates the inventory listed in the products column.
-// Create another Node app called bamazonSupervisor.js. Running this application will list a set of menu options:
-
 // View Product Sales by Department
 function productSalesByDept () {
+    var query = "SELECT departments.department_id, departments.department_name, departments.over_head_costs, sum(products.product_sales) AS product_sales, sum(products.product_sales) - departments.over_head_costs AS total_profit ";query += "FROM departments ";
+    query += "LEFT JOIN products ";
+    query += "ON bamazon_db.products.department_name = bamazon_db.departments.department_name ";
+    query += "GROUP BY bamazon_db.departments.department_name ";
+    query += "ORDER BY department_id";
+
+    connection.query(query, function(err, results) {
+        if (err) throw err;
+        console.table(results);
+        supervisorMenu();
+    })
     // When a supervisor selects View Product Sales by Department, the app should display a summarized table in their terminal/bash window. Use the table below as a guide.
 
-    // department_id	department_name	over_head_costs	product_sales	total_profit
-            // 01	Electronics	10000	20000	10000
-            // 02	Clothing	60000	100000	40000
+   
 
     // The total_profit column should be calculated on the fly using the difference between over_head_costs and product_sales. total_profit should not be stored in any database. You should use a custom alias.
-
-    // If you can't get the table to display properly after a few hours, then feel free to go back and just add total_profit to the departments table.
+   
 }
 // Create New Department
 function createDepartment() {
+        // allow the supervisor to add a completely new department to the store
+        inquirer
+        .prompt([
+          {
+            name: "department",
+            type: "input",
+            message: "Add Department Name"
+          },
+          {
+            name: "overhead",
+            type: "input",
+            message: "Add Overhead Costs",
+            validate: function(value) {
+              if (isNaN(value) === false) {
+                return true;
+              }
+              return false;
+            }
+          },
+        ])
+        .then(function(answer) {
+          // when finished prompting, insert a new product into the db with that info
+          connection.query(
+            "INSERT INTO departments SET ?",
+            {
+              department_name: answer.department,
+              over_head_costs: answer.overhead,
+            },
+            function(err) {
+              if (err) throw err;
+    
+              console.log("The department was added successfully!");
+              supervisorMenu();
+            }
+          );
+        });
+    }
 
-}
 
 
 

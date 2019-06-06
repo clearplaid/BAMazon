@@ -20,8 +20,23 @@ CREATE TABLE products (
 
     PRIMARY KEY (item_id)
 );
+ALTER TABLE products
+ADD COLUMN product_sales DECIMAL (12, 2) AFTER price; 
 
--- Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
+-- Create a new MySQL table called departments. Your table should include the following columns:
+CREATE TABLE departments (
+    -- department_id
+    department_id INTEGER (11) AUTO_INCREMENT NOT NULL,
+    -- department_name
+    department_name VARCHAR (50) NOT NULL,
+    -- over_head_costs (A dummy number you set for each department)
+    over_head_costs DECIMAL (8, 2) NOT NULL,
+    PRIMARY KEY (department_id)
+);
+
+ALTER TABLE departments AUTO_INCREMENT=100;
+
+-- Populate this table with around 10 different products. 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Ticket to Ride", "Toys and Games", 39.99, 5);
 
@@ -52,19 +67,8 @@ VALUES ("Mario Maker 2", "Video Games", 59.99, 15);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Super Smash Bros", "Video Games", 49.99, 9);
 
--- Create a new MySQL table called departments. Your table should include the following columns:
-CREATE TABLE departments (
-    -- department_id
-    department_id INTEGER (11) AUTO_INCREMENT NOT NULL,
-    -- department_name
-    department_name VARCHAR (50) NOT NULL,
-    -- over_head_costs (A dummy number you set for each department)
-    over_head_costs DECIMAL (8, 2) NOT NULL,
-    PRIMARY KEY (department_id)
-);
 
-ALTER TABLE departments AUTO_INCREMENT=100;
-
+-- Populate department table with departments from previous table. 
 INSERT INTO departments (department_name, over_head_costs)
 VALUES ("Toys and Games", 2000.00);
 

@@ -74,7 +74,7 @@ function purchasePrompt(){
     }
     ]).then(function(answer){
         // console.log("answer: " + JSON.stringify(answer));
-        
+
         // get selected product info
         var chosenProduct;
         for (let i = 0; i < results.length; i++) {
@@ -82,12 +82,11 @@ function purchasePrompt(){
               chosenProduct = results[i];
             }
         };
-        // console.log("Chosen Product: " + JSON.stringify(chosenProduct));
+        // console.log("Chosen Product: " + JSON.stringify(chosenProduct.stock_quantity));
 
         // Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
-        if (chosenProduct[4] < parseInt(answer.quantity)) {
+        if (chosenProduct.stock_quantity < parseInt(answer.quantity)) {
             // If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
-            
             console.log("Insufficient Quantity")
             displayProducts();
         }
