@@ -51,6 +51,8 @@ Created a Node application called bamazonManager.js. Running this application do
 
 Listed a set of menu options:
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bManagerMenu.PNG" alt="manager menu" style="width:200px;"/>
+
 Products for Sale
 
 Low Inventory
@@ -61,11 +63,20 @@ Add New Product
 
 If a manager selects Products for Sale, the app lists every available item: the item IDs, names, prices, and quantities.
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bManagerProducts.PNG" alt="products for sale" style="width:200px;"/>
+
 If a manager selects Low Inventory, then it lists all items with an inventory count lower than five.
+
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bManagerLowInv.PNG" alt="low inventory" style="width:200px;"/>
 
 If a manager selects Add Inventory, the app displays a prompt that will let the manager "add more" of any item currently in the store.
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bManagerAddInv.PNG" alt="add inventory" style="width:200px;"/>
+
 If a manager selects Add New Product, it allows the manager to add a completely new product to the store.
+
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bManagerAddProd.PNG" alt="add new product" style="width:200px;"/>
+
 
 ## Challenge #3: Supervisor View
 
