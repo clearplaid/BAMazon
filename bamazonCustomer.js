@@ -86,7 +86,6 @@ function purchasePrompt(){
             console.log("Insufficient Quantity")
             displayProducts();
         }
-
         // However, if your store does have enough of the product, you should fulfill the customer's order.
         else {
             var purchaseTotal = chosenProduct.price *= parseInt(answer.quantity);
