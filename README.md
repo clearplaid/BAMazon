@@ -9,6 +9,8 @@ Created a MySQL Database called bamazon.
 
 Then created a Table inside of that database called products.
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bamazonDBcreate.PNG" alt="database created" style="width:200px;"/>
+
 The products table has each of the following columns:
 
 item_id (unique id for each product)
@@ -22,6 +24,8 @@ price (cost to customer)
 stock_quantity (how much of the product is available in stores)
 
 Populated database with around 10 different products. (i.e. Inserted "mock" data rows into this database and table).
+
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/mockProducts.PNG" alt="mock product data" style="width:200px;"/>
 
 Then created a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. Including the ids, names, and prices of products for sale.
 
@@ -82,6 +86,8 @@ If a manager selects Add New Product, it allows the manager to add a completely 
 
 Created a new MySQL table called departments. This table includes the following columns:
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/mockDept.PNG" alt="mock department data" style="width:200px;"/>
+
 department_id
 
 department_name
@@ -90,6 +96,7 @@ over_head_costs (A dummy number you set for each department)
 
 Modified the products table so that there's a product_sales column, and modified bamazonCustomer.js app so that when a customer purchases anything from the store, the price of the product multiplied by the quantity purchased is added to the product's product_sales column.
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/deptTable.PNG" alt="department table" style="width:200px;"/>
 
 Create another Node app called bamazonSupervisor.js. Running this application will list a set of menu options:
 
