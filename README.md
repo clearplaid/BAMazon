@@ -9,7 +9,7 @@ Created a MySQL Database called bamazon.
 
 Then created a Table inside of that database called products.
 
-<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bcCustomerPurchase.PNG" alt="customer purchase" style="width:200px;"/>
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bcCustomerDisplay.PNG" alt="customer purchase" style="width:200px;"/>
 
 The products table has each of the following columns:
 
