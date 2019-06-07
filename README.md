@@ -36,8 +36,14 @@ Once the customer has placed the order, the application checks if the store has 
 If not, the app logs "Insufficient quantity!", and then prevents the order from going through.
 However, if the store has enough of the product, it fulfills the customer's order.
 
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bcCustomerInsufficient.PNG" alt="insufficient quantity" style="width:200px;"/>
+
+
 This means it updates the SQL database to reflect the remaining quantity.
 Once the update goes through, the customer is given the total cost of their purchase.
+
+<img src="https://github.com/clearplaid/BAMazon/blob/master/screenshots/bcCustomerPurchase.PNG" alt="customer purchase" style="width:200px;"/>
+
 
 ## Challenge #2: Manager View 
 
